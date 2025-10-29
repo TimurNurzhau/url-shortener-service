@@ -5,10 +5,63 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cb4c4dea-148a-4b68-b6c6-4ea20896c376" name="Changes" comment="готово">
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/urlshortener/core/UrlShortenerIntegrationTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/urlshortener/core/UrlValidatorTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.github/workflows/maven.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/checkstyle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/build-and-run.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/format-code.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/run-tests.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/urlshortener/core/LinkValidatorTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/urlshortener/core/PasswordHasherTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/urlshortener/core/UrlShortenerServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/urlshortener/core/UserRepositoryTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/test-config.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/links.dat" beforeDir="false" afterPath="$PROJECT_DIR$/links.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/Config.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/FileLinkRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/FileLinkRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/InMemoryLinkRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/InMemoryLinkRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/Link.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/Link.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/LinkNotActiveException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/LinkNotActiveException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/LinkNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/LinkNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/LinkValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/LinkValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/Logger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/Logger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/PasswordHasher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/PasswordHasher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/ShortCodeGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/ShortCodeGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/SystemSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/SystemSettings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/UrlShortenerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/UrlShortenerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/UrlValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/UrlValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/UserCredentials.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/UserCredentials.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/UserRole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/UserRole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/urlshortener/core/ShortCodeGeneratorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/urlshortener/core/ShortCodeGeneratorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/urlshortener/core/UrlShortenerIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/urlshortener/core/UrlShortenerIntegrationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/urlshortener/core/UrlValidatorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/urlshortener/core/UrlValidatorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system_settings.properties" beforeDir="false" afterPath="$PROJECT_DIR$/system_settings.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/urlshortener/core/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/urlshortener/core/Application.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/urlshortener/core/Config.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/urlshortener/core/Config.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/urlshortener/core/FileLinkRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/urlshortener/core/FileLinkRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/urlshortener/core/InMemoryLinkRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/urlshortener/core/InMemoryLinkRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/urlshortener/core/Link.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/urlshortener/core/Link.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/urlshortener/core/Logger.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/urlshortener/core/Logger.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/urlshortener/core/PasswordHasher.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/urlshortener/core/PasswordHasher.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/urlshortener/core/ShortCodeGenerator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/urlshortener/core/ShortCodeGenerator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/urlshortener/core/UrlShortenerService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/urlshortener/core/UrlShortenerService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/urlshortener/core/UrlValidator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/urlshortener/core/UrlValidator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/urlshortener/core/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/urlshortener/core/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/urlshortener/core/UserCredentials.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/urlshortener/core/UserCredentials.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/urlshortener/core/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/urlshortener/core/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/example/urlshortener/core/ShortCodeGeneratorTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/example/urlshortener/core/ShortCodeGeneratorTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/example/urlshortener/core/UrlShortenerIntegrationTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/example/urlshortener/core/UrlShortenerIntegrationTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/example/urlshortener/core/UrlValidatorTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/example/urlshortener/core/UrlValidatorTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/url_shortener.log" beforeDir="false" afterPath="$PROJECT_DIR$/url_shortener.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users.dat" beforeDir="false" afterPath="$PROJECT_DIR$/users.dat" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,6 +123,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/gerom/IdeaProjects/url-shortener-service",
@@ -81,11 +135,15 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\gerom\IdeaProjects\url-shortener-service\scripts" />
+      <recent name="C:\Users\gerom\IdeaProjects\url-shortener-service\scripts\scripts" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.example.urlshortener.core" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.UrlShortenerIntegrationTest.testCompleteWorkflow">
+  <component name="RunManager" selected="Application.Application">
     <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.urlshortener.core.Application" />
       <module name="url-shortener-service" />
@@ -162,10 +220,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Application" />
         <item itemvalue="JUnit.UrlShortenerIntegrationTest.testCompleteWorkflow" />
         <item itemvalue="JUnit.UrlValidatorTest" />
         <item itemvalue="JUnit.ShortCodeGeneratorTest" />
-        <item itemvalue="Application.Application" />
         <item itemvalue="JUnit.UrlShortenerIntegrationTest" />
       </list>
     </recent_temporary>
@@ -210,7 +268,23 @@
       <option name="project" value="LOCAL" />
       <updated>1761746420806</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="готово">
+      <option name="closed" value="true" />
+      <created>1761746696433</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1761746696433</updated>
+    </task>
+    <task id="LOCAL-00006" summary="готово">
+      <option name="closed" value="true" />
+      <created>1761746701783</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1761746701783</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

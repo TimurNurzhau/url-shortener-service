@@ -9,7 +9,8 @@ import java.util.UUID;
 
 public class Logger {
     private static final String LOG_FILE = "url_shortener.log";
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static final DateTimeFormatter formatter =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public static void log(String message) {
         String timestamp = LocalDateTime.now().format(formatter);

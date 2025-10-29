@@ -1,73 +1,60 @@
 package com.example.urlshortener.core;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.regex.Pattern;
-
-
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class UrlValidator {
 
-    private static final Pattern URL_PATTERN = Pattern.compile(
-            "^(https?|ftp)://[a-zA-Z0-9+&@#/%?=~_|!:,.;-]*[a-zA-Z0-9+&@#/%=~_|.-]"
-    );
-
     private static final int MAX_URL_LENGTH = 2048;
-
-    public static void validateUrl(String url) {
-        System.out.println("DEBUG: validateUrl called with: '" + url + "'");
-
-        if (url == null || url.trim().isEmpty()) {
-            System.out.println("DEBUG: Throwing IllegalArgumentException for empty URL");
-            throw new IllegalArgumentException("URL не может быть пустым");
-        }
-
-        // Проверка длины
-        if (url.length() > MAX_URL_LENGTH) {
-            throw new IllegalArgumentException("URL слишком длинный (максимум " + MAX_URL_LENGTH + " символов)");
-        }
-
-        String normalized = normalizeUrl(url);
-
-        // Финальная проверка валидности URL
-        if (!isValidUrl(normalized)) {
-            throw new IllegalArgumentException("Некорректный URL: " + url);
-        }
-    }
 
     public static boolean isValidUrl(String url) {
         if (url == null || url.trim().isEmpty()) {
             return false;
         }
 
-        // Проверка длины
-        if (url.length() > MAX_URL_LENGTH) {
-            return false;
-        }
+        String normalizedUrl = normalizeUrl(url.trim());
 
         try {
-            new URL(url);
-            return URL_PATTERN.matcher(url).matches();
-        } catch (MalformedURLException e) {
+            URI uri = new URI(normalizedUrl);
+
+            // Проверяем наличие хоста
+            if (uri.getHost() == null) {
+                return false;
+            }
+
+            // Проверяем допустимые схемы
+            String scheme = uri.getScheme();
+            if (scheme == null || (!"http".equals(scheme) && !"https".equals(scheme))) {
+                return false;
+            }
+
+            // Проверяем длину URL
+            if (normalizedUrl.length() > MAX_URL_LENGTH) {
+                return false;
+            }
+
+            // Проверяем, что хост содержит точку (имеет домен)
+            if (!uri.getHost().contains(".")) {
+                return false;
+            }
+
+            return true;
+
+        } catch (URISyntaxException e) {
             return false;
         }
     }
 
-    public static String normalizeUrl(String url) {
-        if (url == null || url.trim().isEmpty()) {
-            throw new IllegalArgumentException("URL не может быть пустым");
+    public static void validateUrl(String url) {
+        if (!isValidUrl(url)) {
+            throw new IllegalArgumentException("Invalid URL: " + url);
         }
+    }
 
-        String normalized = url.trim();
-
-        // Удаление лишних пробелов (включая внутренние)
-        normalized = normalized.replaceAll("\\s+", "");
-
-        // Добавление протокола если отсутствует
-        if (!normalized.startsWith("http://") && !normalized.startsWith("https://")) {
-            normalized = "https://" + normalized;
+    static String normalizeUrl(String url) {
+        if (!url.matches("^[a-zA-Z][a-zA-Z0-9+.-]*://.*")) {
+            return "https://" + url;
         }
-
-        return normalized;
+        return url;
     }
 }

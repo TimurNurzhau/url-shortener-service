@@ -6,13 +6,15 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ShortCodeGenerator {
-    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    private static final String CHARACTERS =
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     private static final int CODE_LENGTH = 8;
     private static final int MAX_GENERATION_ATTEMPTS = 1000; // Увеличим количество попыток
     private static final Random random = new Random();
 
     // Храним использованные коды с привязкой к пользователю: userId -> Set<shortCodes>
-    private static final ConcurrentHashMap<UUID, Set<String>> userUsedCodes = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<UUID, Set<String>> userUsedCodes =
+            new ConcurrentHashMap<>();
 
     // Также храним глобально использованные коды для быстрой проверки уникальности
     private static final Set<String> globalUsedCodes = ConcurrentHashMap.newKeySet();
@@ -41,7 +43,10 @@ public class ShortCodeGenerator {
             code = generateShortCode();
             attempts++;
             if (attempts > MAX_GENERATION_ATTEMPTS) {
-                throw new IllegalStateException("Не удалось сгенерировать уникальный код после " + MAX_GENERATION_ATTEMPTS + " попыток");
+                throw new IllegalStateException(
+                        "Не удалось сгенерировать уникальный код после "
+                                + MAX_GENERATION_ATTEMPTS
+                                + " попыток");
             }
         } while (isCodeUsed(userId, code));
 

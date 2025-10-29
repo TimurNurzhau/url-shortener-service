@@ -18,8 +18,19 @@ public class UserCredentials implements Serializable {
         this.role = role;
     }
 
-    public String getUsername() { return username; }
-    public String getPasswordHash() { return passwordHash; }
-    public UUID getUserId() { return userId; }
-    public UserRole getRole() { return role; }
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public UUID getUserId() {
+        return userId;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
 }

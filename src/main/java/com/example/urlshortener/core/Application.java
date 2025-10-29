@@ -1,8 +1,8 @@
 package com.example.urlshortener.core;
 
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.UUID;
-import java.util.Optional;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -123,7 +123,8 @@ public class Application {
 
         UUID userId = UUID.randomUUID();
         String passwordHash = PasswordHasher.hashPassword(password);
-        UserCredentials credentials = new UserCredentials(username, passwordHash, userId, UserRole.USER);
+        UserCredentials credentials =
+                new UserCredentials(username, passwordHash, userId, UserRole.USER);
 
         userRepository.save(credentials);
         this.currentCredentials = credentials;
@@ -198,12 +199,10 @@ public class Application {
         var userLinks = service.getAllUserLinks(currentUser.getId());
         System.out.println("Создано ссылок: " + userLinks.size());
 
-        long activeLinks = userLinks.stream()
-                .filter(link -> LinkValidator.isLinkActive(link))
-                .count();
+        long activeLinks =
+                userLinks.stream().filter(link -> LinkValidator.isLinkActive(link)).count();
         System.out.println("Активных ссылок: " + activeLinks);
     }
-
 
     private void createShortLink() {
         System.out.println("\n--- СОЗДАНИЕ КОРОТКОЙ ССЫЛКИ ---");
@@ -235,15 +234,16 @@ public class Application {
             System.out.println("📊 Лимит переходов: " + service.getDefaultClickLimit());
             System.out.println("⏰ Время жизни: " + service.getLinkTtlSeconds() + " секунд");
 
-            Logger.logUserAction(currentUser.getId(),
+            Logger.logUserAction(
+                    currentUser.getId(),
                     "Создана короткая ссылка: " + shortCode + " для URL: " + originalUrl);
 
         } catch (Exception e) {
             System.out.println("❌ Ошибка при создании ссылки: " + e.getMessage());
-            Logger.logError("Ошибка создания ссылки для пользователя " + currentUser.getUsername(), e);
+            Logger.logError(
+                    "Ошибка создания ссылки для пользователя " + currentUser.getUsername(), e);
         }
     }
-
 
     private void handleRedirect() {
         System.out.println("\n--- ПЕРЕХОД ПО КОРОТКОЙ ССЫЛКЕ ---");
@@ -259,13 +259,8 @@ public class Application {
             String originalUrl = service.handleRedirect(shortCode);
             System.out.println("🔗 Перенаправление на: " + originalUrl);
 
-            try {
-                java.awt.Desktop.getDesktop().browse(new java.net.URI(originalUrl));
-                System.out.println("✅ Ссылка открыта в браузере!");
-            } catch (Exception e) {
-                System.out.println("⚠️ Не удалось открыть браузер: " + e.getMessage());
-                System.out.println("💡 Скопируйте ссылку выше и откройте вручную");
-            }
+            // Улучшенная логика открытия URL
+            openUrlInBrowser(originalUrl);
 
         } catch (LinkNotFoundException e) {
             System.out.println("❌ Ошибка: " + e.getMessage());
@@ -273,6 +268,61 @@ public class Application {
             System.out.println("🚫 Ссылка недоступна: " + e.getMessage());
         } catch (Exception e) {
             System.out.println("❌ Неизвестная ошибка: " + e.getMessage());
+            Logger.logError("Ошибка при обработке редиректа для кода: " + shortCode, e);
+        }
+    }
+
+    private void openUrlInBrowser(String url) {
+        try {
+            // Проверяем, поддерживается ли Desktop API
+            if (java.awt.Desktop.isDesktopSupported()) {
+                java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
+                if (desktop.isSupported(java.awt.Desktop.Action.BROWSE)) {
+                    desktop.browse(new java.net.URI(url));
+                    System.out.println("✅ Ссылка открыта в браузере!");
+                    return;
+                }
+            }
+
+            // Альтернативные методы для разных ОС
+            String os = System.getProperty("os.name").toLowerCase();
+            Runtime runtime = Runtime.getRuntime();
+
+            if (os.contains("win")) {
+                // Windows
+                runtime.exec("rundll32 url.dll,FileProtocolHandler " + url);
+            } else if (os.contains("mac")) {
+                // macOS
+                runtime.exec("open " + url);
+            } else if (os.contains("nix") || os.contains("nux")) {
+                // Linux
+                runtime.exec("xdg-open " + url);
+            } else {
+                throw new UnsupportedOperationException("Неподдерживаемая операционная система");
+            }
+
+            System.out.println("✅ Команда для открытия браузера выполнена!");
+
+        } catch (Exception e) {
+            System.out.println("⚠️ Не удалось автоматически открыть браузер: " + e.getMessage());
+            System.out.println("📋 Скопируйте ссылку выше и откройте вручную");
+            System.out.println("🔗 " + url);
+
+            // Предлагаем пользователю скопировать ссылку в буфер обмена
+            offerClipboardCopy(url);
+        }
+    }
+
+    private void offerClipboardCopy(String url) {
+        try {
+            java.awt.Toolkit toolkit = java.awt.Toolkit.getDefaultToolkit();
+            java.awt.datatransfer.Clipboard clipboard = toolkit.getSystemClipboard();
+            java.awt.datatransfer.StringSelection selection =
+                    new java.awt.datatransfer.StringSelection(url);
+            clipboard.setContents(selection, null);
+            System.out.println("📎 Ссылка скопирована в буфер обмена!");
+        } catch (Exception e) {
+            System.out.println("❌ Не удалось скопировать в буфер обмена");
         }
     }
 
@@ -282,22 +332,29 @@ public class Application {
 
         if (myLinks.isEmpty()) {
             System.out.println("📭 У вас пока нет созданных ссылок.");
-            System.out.println("💡 Используйте опцию 'Создать короткую ссылку' чтобы добавить первую ссылку!");
+            System.out.println(
+                    "💡 Используйте опцию 'Создать короткую ссылку' чтобы добавить первую ссылку!");
         } else {
             System.out.println("📊 Всего ссылок: " + myLinks.size());
             System.out.println();
 
-            myLinks.forEach(link -> {
-                String status = LinkValidator.isLinkActive(link) ? "🟢 АКТИВНА" : "🔴 НЕАКТИВНА";
-                String details = String.format("📈 Переходы: %d/%d, ⏰ Истекает: %s",
-                        link.getCurrentClicks(), link.getClickLimit(),
-                        link.getExpirationTime().toString().substring(0, 16));
+            myLinks.forEach(
+                    link -> {
+                        String status =
+                                LinkValidator.isLinkActive(link) ? "🟢 АКТИВНА" : "🔴 НЕАКТИВНА";
+                        String details =
+                                String.format(
+                                        "📈 Переходы: %d/%d, ⏰ Истекает: %s",
+                                        link.getCurrentClicks(),
+                                        link.getClickLimit(),
+                                        link.getExpirationTime().toString().substring(0, 16));
 
-                System.out.printf("🔗 Код: %s -> %s [%s]%n",
-                        link.getShortCode(), link.getOriginalUrl(), status);
-                System.out.printf("   %s%n", details);
-                System.out.println("   ──────────────────────────────────────────");
-            });
+                        System.out.printf(
+                                "🔗 Код: %s -> %s [%s]%n",
+                                link.getShortCode(), link.getOriginalUrl(), status);
+                        System.out.printf("   %s%n", details);
+                        System.out.println("   ──────────────────────────────────────────");
+                    });
         }
     }
 
@@ -305,22 +362,30 @@ public class Application {
         var inactiveLinks = service.getInactiveLinks(currentUser.getId());
         if (!inactiveLinks.isEmpty()) {
             System.out.println("\n--- УВЕДОМЛЕНИЯ ---");
-            inactiveLinks.forEach(link -> {
-                String reason;
-                if (link.getCurrentClicks() >= link.getClickLimit()) {
-                    reason = "исчерпан лимит переходов (" + link.getCurrentClicks() + "/" + link.getClickLimit() + ")";
-                } else {
-                    reason = "истек срок действия";
-                }
-                System.out.printf("🔔 Ссылка %s недоступна: %s%n", link.getShortCode(), reason);
-            });
+            inactiveLinks.forEach(
+                    link -> {
+                        String reason;
+                        if (link.getCurrentClicks() >= link.getClickLimit()) {
+                            reason =
+                                    "исчерпан лимит переходов ("
+                                            + link.getCurrentClicks()
+                                            + "/"
+                                            + link.getClickLimit()
+                                            + ")";
+                        } else {
+                            reason = "истек срок действия";
+                        }
+                        System.out.printf(
+                                "🔔 Ссылка %s недоступна: %s%n", link.getShortCode(), reason);
+                    });
             System.out.println("────────────────────");
         }
     }
 
     private void editClickLimit() {
         if (!currentUser.isAdmin()) {
-            System.out.println("❌ Ошибка: только администраторы могут изменять системные настройки");
+            System.out.println(
+                    "❌ Ошибка: только администраторы могут изменять системные настройки");
             System.out.println("💡 Ваша роль: " + currentUser.getRole());
             return;
         }
@@ -354,8 +419,8 @@ public class Application {
             int newLimit = Integer.parseInt(scanner.nextLine());
             service.updateDefaultClickLimit(newLimit);
             System.out.println("✅ Лимит переходов обновлен!");
-            Logger.logAdminAction(currentUser.getId(),
-                    "Изменен системный лимит переходов на: " + newLimit);
+            Logger.logAdminAction(
+                    currentUser.getId(), "Изменен системный лимит переходов на: " + newLimit);
         } catch (NumberFormatException e) {
             System.out.println("❌ Ошибка: введите корректное число.");
         } catch (IllegalArgumentException e) {
@@ -369,8 +434,8 @@ public class Application {
             long newTtl = Long.parseLong(scanner.nextLine());
             service.updateDefaultTtl(newTtl);
             System.out.println("✅ Время жизни ссылок обновлено!");
-            Logger.logAdminAction(currentUser.getId(),
-                    "Изменено время жизни ссылок на: " + newTtl + " секунд");
+            Logger.logAdminAction(
+                    currentUser.getId(), "Изменено время жизни ссылок на: " + newTtl + " секунд");
         } catch (NumberFormatException e) {
             System.out.println("❌ Ошибка: введите корректное число.");
         } catch (IllegalArgumentException e) {
@@ -387,9 +452,13 @@ public class Application {
             UrlShortenerService service = new UrlShortenerService(linkRepository, systemSettings);
 
             ScheduledExecutorService cleanupScheduler = Executors.newScheduledThreadPool(1);
-            cleanupScheduler.scheduleAtFixedRate(() -> {
-                linkRepository.removeExpiredLinks();
-            }, 0, 60, TimeUnit.SECONDS);
+            cleanupScheduler.scheduleAtFixedRate(
+                    () -> {
+                        linkRepository.removeExpiredLinks();
+                    },
+                    0,
+                    60,
+                    TimeUnit.SECONDS);
 
             Application app = new Application(service, userRepository);
             app.start();

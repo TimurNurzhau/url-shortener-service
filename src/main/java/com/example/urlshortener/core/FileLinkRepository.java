@@ -91,19 +91,26 @@ public class FileLinkRepository {
 
     public void removeExpiredLinks() {
         Instant now = Instant.now();
-        boolean removed = links.entrySet().removeIf(entry -> {
-            Link link = entry.getValue();
-            if (link == null) {
-                return true; // Удаляем null ссылки
-            }
-            boolean expired = now.isAfter(link.getExpirationTime());
-            if (expired) {
-                // Освобождаем код для конкретного пользователя
-                ShortCodeGenerator.releaseCodeForUser(link.getOwnerId(), entry.getKey());
-                Logger.log("Автоматически удалена просроченная ссылка: " + entry.getKey());
-            }
-            return expired;
-        });if (removed) {
+        boolean removed =
+                links.entrySet()
+                        .removeIf(
+                                entry -> {
+                                    Link link = entry.getValue();
+                                    if (link == null) {
+                                        return true; // Удаляем null ссылки
+                                    }
+                                    boolean expired = now.isAfter(link.getExpirationTime());
+                                    if (expired) {
+                                        // Освобождаем код для конкретного пользователя
+                                        ShortCodeGenerator.releaseCodeForUser(
+                                                link.getOwnerId(), entry.getKey());
+                                        Logger.log(
+                                                "Автоматически удалена просроченная ссылка: "
+                                                        + entry.getKey());
+                                    }
+                                    return expired;
+                                });
+        if (removed) {
             saveLinksToFile();
         }
     }

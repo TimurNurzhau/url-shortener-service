@@ -16,7 +16,12 @@ public class Link implements Serializable {
     private final Instant creationTime;
     private final Instant expirationTime;
 
-    public Link(String originalUrl, String shortCode, UUID ownerId, int clickLimit, Instant expirationTime) {
+    public Link(
+            String originalUrl,
+            String shortCode,
+            UUID ownerId,
+            int clickLimit,
+            Instant expirationTime) {
         this.originalUrl = originalUrl;
         this.shortCode = shortCode;
         this.ownerId = ownerId;
@@ -27,13 +32,33 @@ public class Link implements Serializable {
     }
 
     // Геттеры остаются прежними, кроме getCurrentClicks
-    public String getOriginalUrl() { return originalUrl; }
-    public String getShortCode() { return shortCode; }
-    public UUID getOwnerId() { return ownerId; }
-    public int getClickLimit() { return clickLimit; }
-    public int getCurrentClicks() { return currentClicks.get(); } // Получение значения
-    public Instant getCreationTime() { return creationTime; }
-    public Instant getExpirationTime() { return expirationTime; }
+    public String getOriginalUrl() {
+        return originalUrl;
+    }
+
+    public String getShortCode() {
+        return shortCode;
+    }
+
+    public UUID getOwnerId() {
+        return ownerId;
+    }
+
+    public int getClickLimit() {
+        return clickLimit;
+    }
+
+    public int getCurrentClicks() {
+        return currentClicks.get();
+    } // Получение значения
+
+    public Instant getCreationTime() {
+        return creationTime;
+    }
+
+    public Instant getExpirationTime() {
+        return expirationTime;
+    }
 
     // Атомарное увеличение счетчика
     public void incrementClicks() {
