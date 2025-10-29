@@ -1,57 +1,79 @@
 package com.example.urlshortener.core;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 public class UrlShortenerService {
-    private final InMemoryLinkRepository repository;
-    private final int defaultClickLimit;
-    private final long linkTtlSeconds;
+    private final FileLinkRepository repository;
+    private final SystemSettings systemSettings;
 
-    public UrlShortenerService(InMemoryLinkRepository repository, int defaultClickLimit, long linkTtlSeconds) {
+    public UrlShortenerService(FileLinkRepository repository, SystemSettings systemSettings) {
         this.repository = repository;
-        this.defaultClickLimit = defaultClickLimit;
-        this.linkTtlSeconds = linkTtlSeconds;
+        this.systemSettings = systemSettings;
     }
 
-    // Пока оставим методы пустыми, заполним их на следующих шагах
     public String createShortLink(String originalUrl, UUID ownerId) {
-        // Генерируем короткий код
-        String shortCode = ShortCodeGenerator.generateShortCode();
+        String shortCode = ShortCodeGenerator.generateUniqueShortCode();
+        Instant expirationTime = Instant.now().plusSeconds(systemSettings.getLinkTtlSeconds());
 
-        // Вычисляем время истечения срока жизни ссылки
-        Instant expirationTime = Instant.now().plusSeconds(linkTtlSeconds);
-
-        // Создаем объект ссылки
         Link newLink = new Link(
                 originalUrl,
                 shortCode,
                 ownerId,
-                defaultClickLimit,
+                systemSettings.getDefaultClickLimit(),
                 expirationTime
         );
 
-        // Сохраняем ссылку в репозитории
         repository.save(newLink);
-
-        // Возвращаем короткий код
         return shortCode;
     }
 
     public String handleRedirect(String shortCode) {
-        // Ищем ссылку в репозитории
         Link link = repository.findByShortCode(shortCode)
-                .orElseThrow(() -> new RuntimeException("Ссылка не найдена")); // Пока просто RuntimeException, потом улучшим
+                .orElseThrow(() -> new LinkNotFoundException("Ссылка не найдена"));
 
-        // Проверяем, активна ли ссылка
         if (!LinkValidator.isLinkActive(link)) {
-            throw new RuntimeException("Ссылка неактивна"); // Потом тоже улучшим
+            throw new LinkNotActiveException("Ссылка неактивна (истек срок или превышен лимит переходов)");
         }
 
-        // Увеличиваем счетчик кликов
         link.incrementClicks();
 
-        // Возвращаем оригинальный URL для перенаправления
+        repository.save(link);
         return link.getOriginalUrl();
+    }
+
+    public List<Link> getInactiveLinks(UUID ownerId) {
+        return repository.findByOwnerId(ownerId).stream()
+                .filter(link -> !LinkValidator.isLinkActive(link))
+                .collect(java.util.stream.Collectors.toList());
+    }
+
+    public List<Link> getAllUserLinks(UUID ownerId) {
+        return repository.findByOwnerId(ownerId);
+    }
+
+    public void updateDefaultClickLimit(int newLimit) {
+        if (newLimit <= 0) {
+            throw new IllegalArgumentException("Лимит переходов должен быть положительным числом");
+        }
+        systemSettings.setDefaultClickLimit(newLimit);
+        System.out.println("Системный лимит переходов изменен на: " + newLimit);
+    }
+
+    public void updateDefaultTtl(long newTtlSeconds) {
+        if (newTtlSeconds <= 0) {
+            throw new IllegalArgumentException("Время жизни должно быть положительным числом");
+        }
+        systemSettings.setLinkTtlSeconds(newTtlSeconds);
+        System.out.println("Системное время жизни ссылок изменено на: " + newTtlSeconds + " секунд");
+    }
+
+    public int getDefaultClickLimit() {
+        return systemSettings.getDefaultClickLimit();
+    }
+
+    public long getLinkTtlSeconds() {
+        return systemSettings.getLinkTtlSeconds();
     }
 }
