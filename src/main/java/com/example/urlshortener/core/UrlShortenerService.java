@@ -14,7 +14,18 @@ public class UrlShortenerService {
     }
 
     public String createShortLink(String originalUrl, UUID ownerId) {
-        String shortCode = ShortCodeGenerator.generateUniqueShortCode();
+        // Явная валидация URL перед созданием ссылки
+        if (originalUrl == null || originalUrl.trim().isEmpty()) {
+            throw new IllegalArgumentException("URL не может быть пустым");
+        }
+
+        try {
+            UrlValidator.validateUrl(originalUrl);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Некорректный URL: " + e.getMessage());
+        }
+
+        String shortCode = ShortCodeGenerator.generateUniqueShortCode(ownerId);
         Instant expirationTime = Instant.now().plusSeconds(systemSettings.getLinkTtlSeconds());
 
         Link newLink = new Link(

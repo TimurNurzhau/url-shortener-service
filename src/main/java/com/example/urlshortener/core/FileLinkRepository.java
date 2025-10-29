@@ -98,13 +98,12 @@ public class FileLinkRepository {
             }
             boolean expired = now.isAfter(link.getExpirationTime());
             if (expired) {
-                ShortCodeGenerator.releaseCode(entry.getKey());
+                // Освобождаем код для конкретного пользователя
+                ShortCodeGenerator.releaseCodeForUser(link.getOwnerId(), entry.getKey());
                 Logger.log("Автоматически удалена просроченная ссылка: " + entry.getKey());
             }
             return expired;
-        });
-
-        if (removed) {
+        });if (removed) {
             saveLinksToFile();
         }
     }
