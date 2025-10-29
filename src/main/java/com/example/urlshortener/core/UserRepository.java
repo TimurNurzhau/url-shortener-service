@@ -22,7 +22,8 @@ public class UserRepository {
 
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
             @SuppressWarnings("unchecked")
-            Map<String, UserCredentials> loadedUsers = (Map<String, UserCredentials>) ois.readObject();
+            Map<String, UserCredentials> loadedUsers =
+                    (Map<String, UserCredentials>) ois.readObject();
             usersByUsername.putAll(loadedUsers);
 
             for (UserCredentials creds : loadedUsers.values()) {
@@ -38,7 +39,8 @@ public class UserRepository {
     private void saveUsersToFile() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(USERS_FILE))) {
             oos.writeObject(usersByUsername);
-            System.out.println("Пользователи успешно сохранены: " + usersByUsername.size() + " записей");
+            System.out.println(
+                    "Пользователи успешно сохранены: " + usersByUsername.size() + " записей");
         } catch (Exception e) {
             System.err.println("Ошибка сохранения пользователей: " + e.getMessage());
             e.printStackTrace(); // Добавляем детали ошибки
@@ -48,13 +50,14 @@ public class UserRepository {
     private void createDefaultAdmin() {
         UUID adminId = UUID.fromString("00000000-0000-0000-0000-000000000001");
         String adminPasswordHash = PasswordHasher.hashPassword("admin123");
-        UserCredentials admin = new UserCredentials("admin", adminPasswordHash, adminId, UserRole.ADMIN);
+        UserCredentials admin =
+                new UserCredentials("admin", adminPasswordHash, adminId, UserRole.ADMIN);
 
         usersByUsername.put("admin", admin);
         usersById.put(adminId, admin);
         saveUsersToFile();
 
-       // System.out.println("Создан администратор по умолчанию: admin / admin123");
+        // System.out.println("Создан администратор по умолчанию: admin / admin123");
     }
 
     public void save(UserCredentials credentials) {

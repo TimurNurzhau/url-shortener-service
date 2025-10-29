@@ -14,9 +14,17 @@ public class User {
     }
 
     // Геттеры
-    public UUID getId() { return id; }
-    public String getUsername() { return username; }
-    public UserRole getRole() { return role; }
+    public UUID getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
 
     public boolean isAdmin() {
         return role == UserRole.ADMIN;

@@ -3,7 +3,6 @@ package com.example.urlshortener.core;
 import java.time.Instant;
 import java.util.*;
 
-
 public class InMemoryLinkRepository {
     private final Map<String, Link> links = new HashMap<>();
 
@@ -14,6 +13,7 @@ public class InMemoryLinkRepository {
     public Optional<Link> findByShortCode(String shortCode) {
         return Optional.ofNullable(links.get(shortCode));
     }
+
     public List<Link> findByOwnerId(UUID ownerId) {
         return links.values().stream()
                 .filter(link -> link.getOwnerId().equals(ownerId))
@@ -22,20 +22,15 @@ public class InMemoryLinkRepository {
 
     public void removeExpiredLinks() {
         Instant now = Instant.now();
-        links.entrySet().removeIf(entry -> {
-            boolean expired = now.isAfter(entry.getValue().getExpirationTime());
-            if (expired) {
-                // Освобождаем код при удалении ссылки
-                ShortCodeGenerator.releaseCode(entry.getKey());
-            }
-            return expired;
-        });
+        links.entrySet()
+                .removeIf(
+                        entry -> {
+                            boolean expired = now.isAfter(entry.getValue().getExpirationTime());
+                            if (expired) {
+                                // Освобождаем код при удалении ссылки
+                                ShortCodeGenerator.releaseCode(entry.getKey());
+                            }
+                            return expired;
+                        });
     }
-
-
-
-
-
-
-
 }

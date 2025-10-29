@@ -28,24 +28,27 @@ public class UrlShortenerService {
         String shortCode = ShortCodeGenerator.generateUniqueShortCode(ownerId);
         Instant expirationTime = Instant.now().plusSeconds(systemSettings.getLinkTtlSeconds());
 
-        Link newLink = new Link(
-                originalUrl,
-                shortCode,
-                ownerId,
-                systemSettings.getDefaultClickLimit(),
-                expirationTime
-        );
+        Link newLink =
+                new Link(
+                        originalUrl,
+                        shortCode,
+                        ownerId,
+                        systemSettings.getDefaultClickLimit(),
+                        expirationTime);
 
         repository.save(newLink);
         return shortCode;
     }
 
     public String handleRedirect(String shortCode) {
-        Link link = repository.findByShortCode(shortCode)
-                .orElseThrow(() -> new LinkNotFoundException("Ссылка не найдена"));
+        Link link =
+                repository
+                        .findByShortCode(shortCode)
+                        .orElseThrow(() -> new LinkNotFoundException("Ссылка не найдена"));
 
         if (!LinkValidator.isLinkActive(link)) {
-            throw new LinkNotActiveException("Ссылка неактивна (истек срок или превышен лимит переходов)");
+            throw new LinkNotActiveException(
+                    "Ссылка неактивна (истек срок или превышен лимит переходов)");
         }
 
         link.incrementClicks();
@@ -77,7 +80,8 @@ public class UrlShortenerService {
             throw new IllegalArgumentException("Время жизни должно быть положительным числом");
         }
         systemSettings.setLinkTtlSeconds(newTtlSeconds);
-        System.out.println("Системное время жизни ссылок изменено на: " + newTtlSeconds + " секунд");
+        System.out.println(
+                "Системное время жизни ссылок изменено на: " + newTtlSeconds + " секунд");
     }
 
     public int getDefaultClickLimit() {

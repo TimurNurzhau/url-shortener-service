@@ -1,0 +1,28 @@
+# Compiled class files
+*.class
+target/
+build/
+
+# Log files
+*.log
+logs/
+
+# Data files
+*.dat
+links.dat
+users.dat
+system_settings.properties
+url_shortener.log
+
+# IDE files
+.idea/
+*.iml
+*.iws
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
