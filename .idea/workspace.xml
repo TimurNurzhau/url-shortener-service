@@ -5,27 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cb4c4dea-148a-4b68-b6c6-4ea20896c376" name="Changes" comment="готово">
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/urlshortener/core/ShortCodeGeneratorTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/urlshortener/core/UrlShortenerIntegrationTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/urlshortener/core/UrlValidatorTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/links.dat" beforeDir="false" afterPath="$PROJECT_DIR$/links.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/FileLinkRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/FileLinkRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/InMemoryLinkRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/InMemoryLinkRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/ShortCodeGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/ShortCodeGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/UrlShortenerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/urlshortener/core/UrlShortenerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/urlshortener/core/AdminAuthenticationTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/urlshortener/core/ComprehensiveSystemTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/urlshortener/core/RealWorldValidationTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/urlshortener/core/UrlShortenerIntegrationTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system_settings.properties" beforeDir="false" afterPath="$PROJECT_DIR$/system_settings.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/urlshortener/core/FileLinkRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/urlshortener/core/FileLinkRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/urlshortener/core/ShortCodeGenerator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/urlshortener/core/ShortCodeGenerator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/urlshortener/core/UrlShortenerService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/urlshortener/core/UrlShortenerService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/example/urlshortener/core/AdminAuthenticationTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/example/urlshortener/core/ComprehensiveSystemTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/example/urlshortener/core/RealWorldValidationTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/example/urlshortener/core/UrlShortenerIntegrationTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/url_shortener.log" beforeDir="false" afterPath="$PROJECT_DIR$/url_shortener.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users.dat" beforeDir="false" afterPath="$PROJECT_DIR$/users.dat" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,6 +64,8 @@
     "JUnit.ShortCodeGeneratorTest.executor": "Run",
     "JUnit.UrlShortenerIntegrationTest.executor": "Run",
     "JUnit.UrlShortenerIntegrationTest.shouldHandleEdgeCases.executor": "Run",
+    "JUnit.UrlShortenerIntegrationTest.testCompleteWorkflow.executor": "Run",
+    "JUnit.UrlValidatorTest.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
@@ -100,7 +85,7 @@
       <recent name="com.example.urlshortener.core" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ShortCodeGeneratorTest">
+  <component name="RunManager" selected="JUnit.UrlShortenerIntegrationTest.testCompleteWorkflow">
     <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.urlshortener.core.Application" />
       <module name="url-shortener-service" />
@@ -110,36 +95,6 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ComprehensiveSystemTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="url-shortener-service" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.example.urlshortener.core.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.example.urlshortener.core" />
-      <option name="MAIN_CLASS_NAME" value="com.example.urlshortener.core.ComprehensiveSystemTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RealWorldValidationTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="url-shortener-service" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.example.urlshortener.core.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.example.urlshortener.core" />
-      <option name="MAIN_CLASS_NAME" value="com.example.urlshortener.core.RealWorldValidationTest" />
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -174,13 +129,44 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="UrlShortenerIntegrationTest.testCompleteWorkflow" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="url-shortener-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.urlshortener.core.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.urlshortener.core" />
+      <option name="MAIN_CLASS_NAME" value="com.example.urlshortener.core.UrlShortenerIntegrationTest" />
+      <option name="METHOD_NAME" value="testCompleteWorkflow" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UrlValidatorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="url-shortener-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.urlshortener.core.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.urlshortener.core" />
+      <option name="MAIN_CLASS_NAME" value="com.example.urlshortener.core.UrlValidatorTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.UrlShortenerIntegrationTest.testCompleteWorkflow" />
+        <item itemvalue="JUnit.UrlValidatorTest" />
         <item itemvalue="JUnit.ShortCodeGeneratorTest" />
         <item itemvalue="Application.Application" />
         <item itemvalue="JUnit.UrlShortenerIntegrationTest" />
-        <item itemvalue="JUnit.ComprehensiveSystemTest" />
-        <item itemvalue="JUnit.RealWorldValidationTest" />
       </list>
     </recent_temporary>
   </component>
@@ -208,7 +194,23 @@
       <option name="project" value="LOCAL" />
       <updated>1761700853781</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="готово">
+      <option name="closed" value="true" />
+      <created>1761746411846</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1761746411846</updated>
+    </task>
+    <task id="LOCAL-00004" summary="готово">
+      <option name="closed" value="true" />
+      <created>1761746420806</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1761746420806</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
